@@ -7,28 +7,43 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ImagesRepositoryImpl(val repositoryCallback:ImagesRepositoryCallback):ImagesRepository {
+object ImagesRepositoryImpl: ImagesRepository {
 
-    private val map:HashMap<String,String> = HashMap()
-    override fun getImages() {
-        map["key"] = "16280154-5a3440fd58a823be15e831ac3";
-        map["lang"] = "ru";
-        map["image_type"] = "all";
-        map["page"] = "1";
-        PixabayClient.getInstant().getImages(map).enqueue(object : Callback<PixabayResponse> {
+    private val mapKey:HashMap<String,String> = HashMap()
+    override fun getImages(repositoryCallback:ImagesListRepositoryCallback) {
+        mapKey.clear()
+        mapKey["key"] = "16280154-5a3440fd58a823be15e831ac3"
+        mapKey["lang"] = "ru"
+        mapKey["image_type"] = "all"
+        mapKey["page"] = "1"
+        repositoryBaseFunction {
+            repositoryCallback.callbackImagesList(it.body()?.getHits()!!)
+        }
+    }
 
-            override fun onResponse(call: Call<PixabayResponse>, response: Response<PixabayResponse>) {
-                response.body()?.getHits()?.let { repositoryCallback.callback(it) };
+    override fun getLargeImage(repositoryCallback:ImageLargeRepositoryCallback, id: Int) {
+        mapKey.clear()
+        mapKey["key"] = "16280154-5a3440fd58a823be15e831ac3"
+        mapKey["id"] =  id.toString()
+        repositoryBaseFunction {
+            repositoryCallback.callbackImageLarge(it.body()?.getHits()?.get(0)?.largeImageURL)
+        }
+    }
 
-            }
-
-            override fun onFailure(call: Call<PixabayResponse>, t: Throwable) {
+    private fun repositoryBaseFunction(foo:(r:Response<PixabayResponse>)->Unit){
+        PixabayClient.getInstant().getImages(mapKey).enqueue(object : Callback<PixabayResponse> {
+            override fun onResponse(call: Call<PixabayResponse>, response: Response<PixabayResponse>) =
+                foo(response)
+            override fun onFailure(call: Call<PixabayResponse>, t: Throwable) =
                 t.printStackTrace()
-            }
         })
     }
-    interface ImagesRepositoryCallback{
-        fun callback(images: List<PixabayHit>)
+
+    interface ImagesListRepositoryCallback{
+        fun callbackImagesList(images: List<PixabayHit>)
+    }
+    interface ImageLargeRepositoryCallback{
+        fun callbackImageLarge(imageUrl: String?)
     }
 
 }

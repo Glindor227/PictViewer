@@ -14,7 +14,7 @@ class PixabayClient {
     companion object{
         private val instant = PixabayClient()
         fun getInstant(): PixabayApi {
-            return instant.service;
+            return instant.service
         }
 
     }

@@ -7,5 +7,4 @@ import retrofit2.http.QueryMap
 interface PixabayApi {
     @GET("api")
     fun getImages(@QueryMap parameter:Map<String, String>): Call<PixabayResponse>
-
 }

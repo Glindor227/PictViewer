@@ -15,7 +15,7 @@ class PixabayResponse {
     @Expose
     private val total = 0
 
-    fun getHits():List<PixabayHit>{
-        return hits!!
+    fun getHits():List<PixabayHit>?{
+        return hits
     }
 }

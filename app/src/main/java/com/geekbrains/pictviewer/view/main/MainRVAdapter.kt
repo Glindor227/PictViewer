@@ -12,18 +12,19 @@ import com.squareup.picasso.Picasso
 
 class MainRVAdapter(private var imgs:List<MainNote>, val callback: Callback):RecyclerView.Adapter<MainRVAdapter.MainRVHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainRVHolder {
-        return MainRVHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.my_litle_img, parent, false)
-        )
-    }
-    override fun getItemCount(): Int {
-        return imgs.size
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            = MainRVHolder(
+                LayoutInflater
+                    .from(parent.context)
+                    .inflate(R.layout.my_litle_img, parent, false)
+            )
+    override fun getItemCount()
+            = imgs.size
 
-    override fun onBindViewHolder(holder: MainRVHolder, position: Int) {
-        holder.bind(imgs[position])
-    }
+
+    override fun onBindViewHolder(holder: MainRVHolder, position: Int)
+            = holder.bind(imgs[position])
+
 
     inner class MainRVHolder(itemView:View) : RecyclerView.ViewHolder(itemView) {
         private val title = itemView.findViewById<TextView>(R.id.tv_title)
@@ -35,7 +36,7 @@ class MainRVAdapter(private var imgs:List<MainNote>, val callback: Callback):Rec
                 .into(tvImg)
 
             itemView.setOnClickListener{
-                callback.onItemClicked(note)
+                callback.onItemClicked(note.id)
             }
         }
 
