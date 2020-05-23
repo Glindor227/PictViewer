@@ -1,4 +1,4 @@
-package com.geekbrains.pictviewer.model.pixabay
+package com.geekbrains.pictviewer.model.retrofit.pixabay
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -11,6 +11,10 @@ class PixabayHit {
     @SerializedName("webformatURL")
     @Expose
     val webFormatURL:String? = null
+
+    @SerializedName("tags")
+    @Expose
+    val tags:String? = null
 
     @SerializedName("largeImageURL")
     @Expose
