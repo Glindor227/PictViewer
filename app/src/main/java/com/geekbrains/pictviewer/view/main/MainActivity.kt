@@ -5,24 +5,26 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.geekbrains.pictviewer.R
 import com.geekbrains.pictviewer.model.MainNote
 import com.geekbrains.pictviewer.presenter.MainPresenter
 import com.geekbrains.pictviewer.view.single.SingleActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 
-class MainActivity : AppCompatActivity(),MainView {
+class MainActivity : MvpAppCompatActivity(),MainView {
 
     //TODO обавить moxy
+    @InjectPresenter
     lateinit var presenter: MainPresenter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter = MainPresenter(this)
+//        presenter = MainPresenter(this)
         presenter.start(edit_query.text.toString())
         fab.setOnClickListener {
             progress.visibility = View.VISIBLE

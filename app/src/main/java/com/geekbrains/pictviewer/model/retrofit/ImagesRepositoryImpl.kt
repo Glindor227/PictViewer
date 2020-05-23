@@ -23,9 +23,9 @@ class ImagesRepositoryImpl: ImagesRepository {
         mapKey["per_page"] = "20"
         mapKey["page"] = "1"
 
-        Log.d("TimeTest","call getImages("+query+")" + LocalTime.now().toString());
+        Log.d("TimeTest","call getImages("+query+")" + LocalTime.now().toString())
         repositoryBaseFunction {
-            Log.d("TimeTest","rezult getImages(count="+it.body()?.getHits()?.size+") " + LocalTime.now().toString());
+            Log.d("TimeTest","rezult getImages(count="+it.body()?.getHits()?.size+") " + LocalTime.now().toString())
             repositoryCallback.callbackImagesList(it.body()?.getHits()!!)
         }
     }
@@ -35,9 +35,9 @@ class ImagesRepositoryImpl: ImagesRepository {
         mapKey.clear()
         mapKey["key"] = "16280154-5a3440fd58a823be15e831ac3"
         mapKey["id"] =  id.toString()
-        Log.d("TimeTest","call getLargeImage($id)" + LocalTime.now().toString());
+        Log.d("TimeTest","call getLargeImage($id)" + LocalTime.now().toString())
         repositoryBaseFunction {
-            Log.d("TimeTest","rezult getLargeImage(count="+it.body()?.getHits()?.size+")  " + LocalTime.now().toString());
+            Log.d("TimeTest","rezult getLargeImage(count="+it.body()?.getHits()?.size+")  " + LocalTime.now().toString())
             repositoryCallback.callbackImageLarge(it.body()?.getHits()?.get(0)?.largeImageURL)
         }
     }

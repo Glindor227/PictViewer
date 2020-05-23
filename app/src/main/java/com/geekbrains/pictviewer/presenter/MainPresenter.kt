@@ -9,11 +9,13 @@ import com.geekbrains.pictviewer.model.ormStorage.repository.UrlRepositoryImpl
 import com.geekbrains.pictviewer.model.retrofit.ImagesRepositoryImpl
 import com.geekbrains.pictviewer.model.retrofit.pixabay.PixabayHit
 import com.geekbrains.pictviewer.view.main.MainView
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.O)
-class MainPresenter(private val mainView:MainView)
-    : ImagesRepositoryImpl.ImagesListRepositoryCallback,
+@InjectViewState
+class MainPresenter: MvpPresenter<MainView>(),ImagesRepositoryImpl.ImagesListRepositoryCallback,
     UrlRepositoryImpl.UrlListRepositoryCallback{
     private var nodes:MutableList<MainNote> = mutableListOf()
     private lateinit var query:String
@@ -43,7 +45,7 @@ class MainPresenter(private val mainView:MainView)
             nodes.add(MainNote(it.id!!,it.user!!,it.webFormatURL!!))
             urlRep.addUrl(it.id!!,it.user!!,it.webFormatURL)
         }
-        mainView.onListComplete(nodes)
+        viewState.onListComplete(nodes)
     }
 
     override fun callbackUrlList(images: List<ImageUrl>) {
@@ -54,7 +56,7 @@ class MainPresenter(private val mainView:MainView)
         images.forEach{
             nodes.add(MainNote(it.id!!,it.name,it.url!!))
         }
-        mainView.onListComplete(nodes)
+        viewState.onListComplete(nodes)
     }
 
 }
