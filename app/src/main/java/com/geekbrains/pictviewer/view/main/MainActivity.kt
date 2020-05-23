@@ -14,9 +14,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 
+/**
+https://github.com/Glindor227/PictViewer
+Проект доделал.
+Из планов на будущее:
+Из программы
+1) сделаю тесты
+2) Прикручу Crashlytics
+Для удобства
+1) Сделаю "избранное" и буду хронить в ORM
+2) Отправлять картинки комуто(через неявные интенты наверно).
+ */
 class MainActivity : MvpAppCompatActivity(),MainView {
 
-    //TODO обавить moxy
     @InjectPresenter
     lateinit var presenter: MainPresenter
 
