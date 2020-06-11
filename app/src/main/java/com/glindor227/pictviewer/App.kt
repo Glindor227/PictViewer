@@ -5,6 +5,9 @@ import com.glindor227.pictviewer.di.AppComponent
 import com.glindor227.pictviewer.di.AppModule
 import com.glindor227.pictviewer.di.DaggerAppComponent
 
+/**
+ * Опять забыли сделать новю ветку для пулреквеста
+ */
 class App: Application() {
 
     override fun onCreate() {
